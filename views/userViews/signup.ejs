@@ -1,0 +1,186 @@
+<%- include('../layouts/userLayouts/header.ejs') %>
+
+
+
+<header class="header header-7">
+ 
+
+  <div class="header-middle sticky-header">
+      <div class="container-fluid">
+          <div class="header-left">
+              <button class="mobile-menu-toggler">
+                  <span class="sr-only">Toggle mobile menu</span>
+                  <i class="icon-bars"></i>
+              </button>
+              
+              <a href="/home" class="logo">
+                  <img src="/userAssets/images/demos/demo-7/userlogo.jpg" alt="Molla Logo" width="105" height="25">
+              </a>
+
+              <nav class="main-nav">
+                  <ul class="menu sf-arrows">
+                      <li class="megamenu-container ">
+                          <a href="/home" >Home</a>
+
+                          
+                      </li>
+                      <li>
+                          <a href="/shop">Shop</a>
+
+                      </li>
+                      
+                  </ul><!-- End .menu -->
+              </nav><!-- End .main-nav -->
+          </div><!-- End .header-left -->
+
+          
+          </div><!-- End .header-right -->
+      </div><!-- End .container-fluid -->
+  </div><!-- End .header-middle -->
+</header><!-- End .header -->
+  <main class="main">
+            
+
+    <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url('userAssets/images/backgrounds/login-bg.jpg')">
+      <div class="container">
+        <div class="form-box">
+          <div class="form-tab">
+            <ul class="nav nav-pills nav-fill" role="tablist">
+          <li class="nav-item">
+              <a class="nav-link" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="false">Sign Up</a>
+          </li>
+
+      </ul>
+      <div class="tab-content">
+          
+            <form action="" method="post" id="form">
+              <div class="form-group pt-5">
+                <label for="singin-email-2 ">Your Name  *</label>
+                <input type="text" class="form-control" id="name" name="name">
+                <span class="error text-danger" id="nameError"></span>
+              </div><!-- End .form-group -->
+              <div class="form-group ">
+                <label for="singin-email-2 "> email address *</label>
+                <input type="text" class="form-control" id="email" name="email">
+                <span class="error text-danger" id="emailError"></span>
+              </div><!-- End .form-group -->
+              <div class="form-group ">
+                <label for="singin-email-2 ">Mobile Number *</label>
+                <input type="text" class="form-control" id="mobile" name="mobile" >
+                <span class="error text-danger" id="mobileError"></span>
+              </div><!-- End .form-group -->
+              <div class="form-group">
+                <label for="singin-password-2">Password *</label>
+                <input type="password" class="form-control" id="password" name="password" >
+                
+              </div><!-- End .form-group -->
+
+              <div class="form-footer">
+                <button type="submit" class="btn btn-outline-primary-2">
+                        <span>SIGN UP</span>
+                      <i class="icon-long-arrow-right"></i>
+                      </button>
+                      <% 
+
+                      if(typeof message !== 'undefined' ){
+                        
+                        %>
+                          <P style="text-align: center;color: red;">
+                            <%= message %>
+                          </P>
+              
+                        <% 
+              
+                      }
+                    %>
+                      <div class="custom-control custom-checkbox">
+                
+                
+              </div><!-- End .custom-checkbox -->
+
+             
+              </div><!-- End .form-footer -->
+              
+            </form>
+            <div class="form-choice">
+              <p class="text-center">Already have an anccount</p>
+              <div class="row">
+                <div class="col-sm-6">
+                  <p class="text-dark text-end"></p> 
+                </div><!-- End .col-6 -->
+                <div class="col-sm-6">
+                  <a href="/login" class="btn btn-login ">
+                    
+                    Login
+                  </a>
+                </div><!-- End .col-6 -->
+              </div><!-- End .row -->
+            </div><!-- End .form-choice -->
+          </div><!-- .End .tab-pane -->
+          <!-- <div class="tab-pane fade show active" id="register-2" role="tabpanel" aria-labelledby="register-tab-2"> -->
+            
+            
+          </div><!-- .End .tab-pane -->
+      </div><!-- End .tab-content -->
+    </div><!-- End .form-tab -->
+        </div><!-- End .form-box -->
+      </div><!-- End .container -->
+    </div><!-- End .login-page section-bg -->
+</main><!-- End .main -->
+<script>
+  const form = document.getElementById("form");
+  const name = document.getElementById("name");
+  const email = document.getElementById("email");
+  const mobile = document.getElementById("mobile");
+
+  const nameError = document.getElementById("nameError");
+  const emailError = document.getElementById("emailError");
+  const mobileError = document.getElementById("mobileError");
+
+  form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const namevalue = name.value.trim();
+  const emailvalue = email.value.trim();
+  const mobilevalue = mobile.value.trim();
+
+        if (!namevalue) {
+          nameError.textContent = "Please Enter your Name";
+          return;
+        } else {
+          nameError.textContent = "";
+        }
+
+        if (!mobilevalue) {
+            mobileError.textContent = "Please Enter Mobile Number";
+          return;
+        } else if(isNaN(Number(mobilevalue))) {
+            mobileError.textContent = "Only Numbers allowed";
+            return
+        }else if(mobilevalue.length < 10) {
+            mobileError.textContent = "invalid mobile Number";
+            return
+        }else{
+            mobileError.textContent = ""
+        }
+
+        if (!emailvalue) {
+          emailError.textContent = "Please Enter your email";
+          return;
+        } else if(!isEmail(emailvalue)) {
+          emailError.textContent = "Enter a valid email";
+          return;
+        }else{
+          emailError.textContent = "";
+        }
+        form.submit();
+
+  })
+  function isEmail(email) {
+      return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
+    }   
+  
+
+
+</script>
+<%- include('../layouts/userLayouts/footer.ejs') %>

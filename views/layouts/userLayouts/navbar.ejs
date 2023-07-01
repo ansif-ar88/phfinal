@@ -1,0 +1,109 @@
+<header class="header header-6">
+    <div class="header-top">
+        <div class="container-fluid">
+           
+
+            <div class="header-right my-4">
+                <ul class="top-menu">
+                    <li>
+                        <a href="#">Links</a>
+                        <ul>
+                            
+                            <li ><a href="/wishlist"><i class="icon-heart-o"></i>My Wishlist </a></li>
+                           
+                            
+                            <% if (session != null) { %>
+                                <!-- <li ><a href="/profile"><%= userData.name %></a></li> -->
+                                <div class="dropdown cart-dropdown">
+                                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                        <li ><a href="">MY ACCOUNT</a></li>
+                                       
+                                    </a>
+        
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <div class="dropdown-cart-products">
+                                            <div class="product d-flex flex-column justify-content-center align-items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                                                  </svg>
+                                                
+                                                <p class="mt-3 text-dark"><%= userData.name %></p>
+                                            </div><!-- End .product -->
+                                        </div><!-- End .cart-product -->
+        
+                                      
+        
+                                        <div class="dropdown-cart-action d-flex justify-content-center">
+                                            <a href="/profile" class="btn btn-primary mt1 ">View Profile</a>
+                                            
+                                        </div><!-- End .dropdown-cart-total -->
+                                    </div><!-- End .dropdown-menu -->
+                                </div><!-- End .cart-dropdown -->
+                            <% } else { %>
+                                <li><a href="/login"><i class="icon-user "></i> Login</a></li>
+                            <% } %>
+                              
+                                
+                            
+                        </ul>
+                    </li>
+                </ul><!-- End .top-menu -->
+            </div><!-- End .header-right -->
+        </div><!-- End .container-fluid -->
+    </div><!-- End .header-top -->
+
+    <div class="header-middle sticky-header">
+        <div class="container-fluid">
+            <div class="header-left">
+                <button class="mobile-menu-toggler">
+                    <span class="sr-only">Toggle mobile menu</span>
+                    <i class="icon-bars"></i>
+                </button>
+                
+                <a href="/home" class="logo">
+                    <img src="/userAssets/images/demos/demo-7/userlogo.jpg" alt="Molla Logo" width="105" height="25">
+                </a>
+
+                <nav class="main-nav">
+                    <ul class="menu sf-arrows">
+                        <li class="megamenu-container ">
+                            <a href="/home" >Home</a>
+
+                            
+                        </li>
+                        <li>
+                            <a href="/shop">Shop</a>
+ 
+                        </li>
+                        
+                    </ul><!-- End .menu -->
+                </nav><!-- End .main-nav -->
+            </div><!-- End .header-left -->
+
+            <div class="header-right">
+                <!-- <div class="header-search header-search-extended header-search-visible">
+                    <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                    <form action="/form" method="post">
+                        <div class="header-search-wrapper search-wrapper-wide">
+                            <label for="q" class="sr-only">Search</label>
+                            <input type="search" class="form-control" name="search" id="q" placeholder="Search product ..." required>
+                            <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+                        </div><!-- End .header-search-wrapper --
+                    </form>
+                </div>End .header-search -->
+                
+                <div class="dropdown cart-dropdown">
+
+
+                    
+                    <a href="/cart" class="dropdown-toggle" >
+                        
+                        <i class="icon-shopping-cart"></i>
+                    </a>
+                    </div><!-- End .dropdown-menu -->
+                </div><!-- End .cart-dropdown -->
+            </div><!-- End .header-right -->
+        </div><!-- End .container-fluid -->
+    </div><!-- End .header-middle -->
+</header><!-- End .header -->

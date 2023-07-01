@@ -1,0 +1,85 @@
+<%- include('../layouts/adminLayouts/header.ejs') %>
+<%- include('../layouts/adminLayouts/sidebar.ejs') %>
+<%- include('../layouts/adminLayouts/navbar.ejs') %>
+      <!-- partial -->
+      
+
+
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+              
+              
+              <div class="row">
+                <div class="col-lg-12 grid-margin stretch-card">
+                  <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">USER LIST</h4>
+                  
+
+                  </p>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>NAME</th>
+                          <th>Email</th>
+                          <th>MOBILE</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <%
+                          if(users.length > 0){
+                            for(let i = 0; i < users.length; i++){
+                              %>
+                              <tr>
+                                <td><%= i + 1 %></td>
+                                <td><%= users[i].name %></td>
+                                <td><%= users[i].email %></td>
+                                <td><%= users[i].mobile %></td>
+                                <!-- <td><%= users[i].is_blocked %></td> -->
+                                <td>
+                                  <% if (users[i].is_blocked == true){
+                                    %>
+                                    <p>NON ACTIVE</p>
+                                    <% }else{%>
+                                      <p>ACTIVE</p>
+                                      <% 
+                            }
+                              
+                              %>
+                          
+                                </td>
+                                
+                               <td>
+                               <% if (users[i].is_blocked == true){
+                                 %>
+                               <a class="btn btn-success" href="/admin/unblock-user?id=<%= users[i]._id%>">Unblock</a>
+                               <% }else{%>
+                                <a class="btn btn-danger" href="/admin/block-user?id=<%= users[i]._id %>">Block</a>
+                              </td>
+                               
+                              </tr>
+                              <% 
+                            }}}
+                              
+                              %>
+                          
+                          
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                </div>
+                </div>
+
+
+               
+               
+              </div>
+              </div>
+              </div>
+              <%- include('../layouts/adminLayouts/footer.ejs') %>

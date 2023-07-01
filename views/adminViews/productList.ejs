@@ -1,0 +1,305 @@
+
+<%- include('../layouts/adminLayouts/header.ejs') %>
+<%- include('../layouts/adminLayouts/sidebar.ejs') %>
+<%- include('../layouts/adminLayouts/navbar.ejs') %>
+
+<div class="main-panel">
+  <div class="content-wrapper">
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+<h4 class="card-title">PRODUCT LIST</h4><span><div class="d-flex justify-content-end">
+<button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#addProductModal">ADD PRODUCT</button>
+        
+</div></span>
+
+        <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ADD PRODUCT</h5>
+              </div>
+                <div class="modal-body">
+               
+                  <form class="form-sample" action="/admin/addproduct" method="post" enctype="multipart/form-data" id="form">
+                        
+                  
+                    <div class="form-group">
+                      <label class="col-sm-3 col-form-label">Product Name</label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control" id="pname" name="productName"/>
+                        <span class="text-danger " id="pnameError"></span>
+
+                      </div>
+                    </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 col-form-label">ideal for</label>
+                        <div class="col-sm-12">
+                          <select class="form-control" name="idealfor">
+                            <option>Men</option>
+                            <option>Woman</option>
+                          </select>
+                        </div>
+                      </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 col-form-label">Price</label>
+                        <div class="col-sm-12">
+                          <input type="number" class="form-control" id="price" name="price" />
+                          <span class="text-danger " id="priceError"></span>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 col-form-label">Category</label>
+                        <div class="col-sm-12">
+<select class="form-control" name="category">
+  <% category.forEach(cat => { %>
+    <option value="<%= cat._id %>"><%= cat.categoryName %></option>
+  <% }) %>
+</select>
+</div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 col-form-label" >File upload</label> 
+                        <div class="col-sm-12">
+                            <input class="form-control" style="height: 40;width: 228px ; background-color: gray;color: white;" accept="Image/*" type="file" name="image" id="imageValidate" multiple>
+                         <p class="text-danger " id="imageError"></p>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 col-form-label">brand</label>
+                        <div class="col-sm-12">
+                          <select class="form-control" name="brand">
+                            <option>Fossil</option>
+                            <option>Calvin Klein</option>
+                            <option>Titan</option>
+                            <option>Casio</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 col-form-label">stock Quantity</label>
+                        <div class="col-sm-12">
+                          <input type="number" class="form-control" name="StockQuantity" id="stock" />
+                          <span class="text-danger " id="stockError"></span>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-12">
+                          <!-- <input type="text" class="form-control" name="description"/> -->
+                          <textarea class="form-control" id="description" rows="4"  name="description"></textarea>
+                          <span class="text-danger " id="descriptionError"></span>
+                        </div>
+                        
+                        
+                      </div>
+                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                      <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancel</button>
+                  </form>
+
+                </div> 
+            </div>          
+          </div>                        
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>               
+
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Product List</h4>
+        
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Offer</th>
+                <th>Brand</th>
+                <th>Category</th>
+                <th>Stock</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (products.length > 0) { %>
+                <% for (let i = 0; i < products.length; i++) { %>
+                  <tr>
+                    <td><%= i + 1 %></td>
+                    <td class="py-1">
+                      <% for (let j = 0; j < 1; j++) { %>
+                        <img style="width: 50px; height: 50px;" src="/adminAssets/adminImages/<%= products[i].image[j] %>" alt="image" />
+                      <% } %>
+                    </td>
+                    <td><%= products[i].productName %></td>
+
+
+                    <td>
+                      <% if(products[i].offPrice > 0 ){ %>
+                        <del class="text-danger"><%= products[i].price %>   </del><span><%= products[i].offPrice %></span>
+                        <% }else{ %>
+                        <%= products[i].price %>
+                        <% }%>
+                      
+                    
+                    </td>
+
+                    <td><%= products[i].offPercentage %> %</td>
+                    <td><%= products[i].brand %></td>
+                    <td><%= products[i].category.categoryName %></td>
+                    <td><%= products[i].StockQuantity %></td>
+                    <td class="d-flex flex-column">
+                      <a type="button" class="btn btn-outline-primary rounded-0 my-2" href="/admin/editProduct/<%= products[i]._id %>" type="button" >EDIT</a>                 
+                      <a type="button" class="btn btn-danger  my-2" href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop<%= products[i]._id %>">DELETE</a>
+                      <button type="button" class="btn btn-outline-primary my-2" data-bs-toggle="modal" data-bs-target="#addOfferModal-<%= products[i]._id %>">ADD OFFER</button>
+
+                    </td>
+                  </tr>
+                  <div class="modal fade" id="staticBackdrop<%= products[i]._id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content" style="background-color: #191C24;color: aliceblue;">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Delete Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <p>Are you sure you want to delete product <%= products[i].productName %>?</p>
+                        </div>
+                        <div class="modal-footer">
+                        <a href="/admin/productList"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button></a>
+                        <a href="/admin/deleteProduct?id=<%= products[i]._id %>"><button type="button" class="btn btn-primary">Yes</button></a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+
+                <div class="modal fade" id="addOfferModal-<%= products[i]._id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">ADD OFFER</h5>
+                        
+                      </div>
+                      <div class="modal-body">
+                          <form action="/admin/addOffer" method="post" class="forms-sample">
+                              <div class="form-group">
+                                <label for="exampleInputUsername1">Offer Name</label>
+                                <input type="text" class="form-control"  placeholder="Coupon Name" name="offName">
+                              
+                              </div>
+                             
+                              <div class="form-group">
+                                <label for="exampleInputPassword1">Discount Percentage</label>
+                                <input type="text" class="form-control"  placeholder="Discount Percentage" name="offPercentage">
+                              </div>
+                              <div class="form-group">
+                                
+                                <input type="hidden" class="form-control"  value="<%= products[i]._id %>" name="id">
+                              </div>
+
+                              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                              
+                              <button type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                            </form>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+              <% } else { %>
+                <tr>
+                  <td colspan="9">No products found.</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+        <% if (typeof message !== 'undefined') { %>
+          <p style="color: red;"><%= message %></p>
+        <% } %>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+    
+<script>
+        const form = document.getElementById("form");
+        const productName = document.getElementById("pname");
+        const price = document.getElementById("price");
+        const StockQuantity = document.getElementById("stock");
+        const description = document.getElementById("description");
+        const imageValidate = document.getElementById("imageValidate");
+
+        const proNameError = document.getElementById("pnameError");
+        const priceError = document.getElementById("priceError");
+        const stockError = document.getElementById("stockError");
+        const descriptionError = document.getElementById("descriptionError");
+        const imageError = document.getElementById("imageError");
+
+        form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const productNamevalue = productName.value.trim();
+        const pricevalue = price.value.trim();
+        const StockQuantityvalue = StockQuantity.value.trim();
+        const descriptionvalue = description.value.trim();
+        
+        if (!productNamevalue) {
+          proNameError.textContent = "Please Enter Product Name";
+          return;
+        } else {
+          proNameError.textContent = "";
+        }
+
+        if(!pricevalue){
+          priceError.textContent = "Please Enter Price";
+          return
+        }else if(pricevalue < 0){
+          priceError.textContent = "Please Enter a positive Number";
+          return
+        }else{
+          priceError.textContent ="";
+        }
+
+        if(!StockQuantityvalue){
+          stockError.textContent = "Please Enter Stock Quantity"
+          return
+        }else if(StockQuantityvalue < 0){
+          stockError.textContent = "Please Enter Positive Number"
+          return
+        }else{
+          stockError.textContent = ""
+        }
+
+        if (!descriptionvalue) {
+          descriptionError.textContent = "Please Enter Description";
+          return;
+        }
+
+        const image = imageValidate.files[0];
+    if (!image) {
+      imageError.textContent = 'Please select an image';
+      return;
+    } else {
+      const allowedExtensions = /\.(jpg|jpeg|png|gif)$/i;
+      if (!allowedExtensions.test(image.name)) {
+        imageError.textContent = "Invalid image file format";
+        return;
+      }
+      imageError.textContent = "";
+    }
+        form.submit();
+      });
+
+</script>
+<%- include('../layouts/adminLayouts/footer.ejs') %>
+

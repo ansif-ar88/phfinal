@@ -1,0 +1,233 @@
+<%- include('../layouts/userLayouts/header.ejs') %>
+<%- include('../layouts/userLayouts/navbar.ejs') %>
+
+<main class="main">
+    <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+        <div class="container d-flex align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><%=productData.productName%></li>
+            </ol>
+
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+    <div class="page-content">
+        <div class="container">
+            <div class="product-details-top">
+                <div class="row">
+                    <div class="col-md-6">                        
+                        <div class="product-gallery product-gallery-vertical">
+                            <div class="row">
+                                <figure class="product-main-image">
+                                    <% if(productData.offPercentage > 0){ %>
+                                        <span class="product-label label-new"><%= productData.offPercentage %> % off</span>
+                                        <% }else{%>
+
+                                            <%	} %>
+                                    <img id="product-zoom" src="/adminAssets/adminImages/<%=productData.image[0]%>" >
+                                    <a href="/adminAssets/adminImages/<%=productData.image[0]%>" id="btn-product-gallery" class="btn-product-gallery">
+                                        <i class="icon-arrows"></i>
+                                    </a>
+                                </figure><!-- End .product-main-image -->
+                                
+                                
+                                <div id="product-zoom-gallery" class="product-image-gallery">
+                                    <a class="product-gallery-item active" href="/adminAssets/adminImages/<%=productData.image[0]%>" data-image="/adminAssets/adminImages/<%=productData.image[0]%>" >
+                                        <img src="/adminAssets/adminImages/<%=productData.image[0]%>" alt="product side">
+                                    </a>
+                                
+                                    <a class="product-gallery-item" href="/adminAssets/adminImages/<%=productData.image[1]%>" data-image="/adminAssets/adminImages/<%=productData.image[1]%>" >
+                                        <img src="/adminAssets/adminImages/<%=productData.image[1]%>" alt="product cross">
+                                    </a>
+                                
+                                    <a class="product-gallery-item" href="/adminAssets/adminImages/<%=productData.image[2]%>" data-image="/adminAssets/adminImages/<%=productData.image[2]%>">
+                                        <img src="/adminAssets/adminImages/<%=productData.image[2]%>" alt="product with model">
+                                    </a>
+                                
+                                    <a class="product-gallery-item" href="/adminAssets/adminImages/<%=productData.image[3]%>" data-image="/adminAssets/adminImages/<%=productData.image[3]%>">
+                                        <img src="/adminAssets/adminImages/<%=productData.image[3]%>" alt="product back">
+                                    </a>
+                                </div><!-- End .product-image-gallery -->                                
+                            </div><!-- End .row -->
+                        </div><!-- End .product-gallery -->
+                    </div><!-- End .col-md-6 -->
+
+                    <div class="col-md-6">
+                        <div class="product-details">
+                            <h1 class="product-title"><%=productData.productName%></h1><!-- End .product-title -->
+                            <div class="product-price">
+                                <%	if(productData.offPrice > 0){ %>
+                                    <del class="text-danger">₹ <%= productData.price %>.00</del> &nbsp; &nbsp; ₹ <%= productData.offPrice %>.00
+                                    <% }else{ %>
+                                    ₹ <%=productData.price%>.00
+                                    <%	} %>
+                                
+                            </div><!-- End .product-price -->
+
+                            <div class="product-content">
+                                <p><%=productData.description%> </p>
+                            </div><!-- End .product-content -->
+
+                           
+
+                            <br>
+                            <br>
+                            <br>
+
+                            <div class="product-details-action">
+
+
+                                <% if (session != null) { %>
+                                    <% if(productData.StockQuantity == 0){%>
+                                        <h5 class="out-of-stock border border-danger p-3">out of stock</h5>
+                                <% }else{%>
+                                <button class="btn btn-primary" onclick="addtocart('<%=productData._id%>')">Add To Cart</button>
+                                <% }%>
+                                    
+
+                                        
+                                    <% } else { %>
+                                        <% if(productData.StockQuantity == 0){%>
+                                            <h5 class="out-of-stock  border border-danger p-3">out of stock</h5>
+                                    <% }else{%>
+                                    <button class="btn btn-primary" onclick="plzlogin()">Add To Cart</button>
+                                    <% }%>
+                                <% } %>
+                               
+                                
+                                <div class="details-action-wrapper">
+                                    <% if (session != null) { %>
+                                        <% if(productData.StockQuantity == 0){%>
+                                            
+                                    <% }else{%>
+                                    <button onclick="addtoWishlist('<%=productData._id%>')" class="btn btn-outline-dark-2" title="Wishlist"><span>Add to Wishlist</span></button>
+                                    <% } %>
+                                    <% } else { %>
+                                        <% if(productData.StockQuantity == 0){%>
+                                            
+                                    <% }else{%>
+                                        <button class="btn btn-outline-dark-2" onclick="plzlogin()">Add to Wishlist</button>
+                                        <% } %>
+                                        <% } %>
+                                
+                                </div><!-- End .details-action-wrapper -->
+                            </div><!-- End .product-details-action -->
+
+                           <!-- End .product-details-footer -->
+                        </div><!-- End .product-details -->
+                    </div><!-- End .col-md-6 -->
+                </div><!-- End .row -->
+            </div><!-- End .product-details-top -->
+            <div class="product-details-tab">
+                <ul class="nav nav-pills justify-content-center" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">Description</a>
+                    </li>   
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
+                        <div class="product-desc-content">
+                            <h3>Product Information</h3>
+                            <p><%=productData.description%> </p>                            
+                        </div><!-- End .product-desc-content -->
+                    </div><!-- .End .tab-pane -->    
+                </div><!-- End .tab-content -->
+            </div><!-- End .product-details-tab -->   
+        </div><!-- End .container -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+<script>
+
+    function addtocart(productid){
+     $.ajax({
+         url:"/addtocart",
+         method:"post",
+         data:{
+             id:productid
+         },
+         success:(response)=>{
+             if(response.success){
+                 swal.fire({
+
+                     positon:'center',
+                     icon:"success",
+                     title  : 'product added to cart',
+                     showConfirmButton:false,
+                     timer : 1500,
+
+                 })
+                 location.reload();
+             }else{
+                swal.fire({
+
+                positon:'center',
+                icon:"warning",
+                title  : 'product Quantity exceeded',
+                showConfirmButton:false,
+                timer : 1500,
+
+})
+             }
+         }
+         
+     })
+    }
+    function addtoWishlist(productid){
+     $.ajax({
+         url:"/addtoWishlist",
+         method:"post",
+         data:{
+             id:productid
+         },
+         success:(response)=>{
+             if(response.success){
+                 swal.fire({
+
+                     positon:'center',
+                     icon:"success",
+                     title  : 'product added to cart',
+                     showConfirmButton:false,
+                     timer : 1500,
+
+                 })
+                 location.reload();
+             }
+//              else{
+//                 swal.fire({
+
+//                 positon:'center',
+//                 icon:"warning",
+//                 title  : 'product Quantity exceeded',
+//                 showConfirmButton:false,
+//                 timer : 1500,
+
+// })
+//              }
+         }
+         
+     })
+    }
+ 
+
+    function plzlogin(){
+     $.ajax({
+         success:(response)=>{
+             
+                 swal.fire({
+                     positon:'center',
+                    icon:"warning",
+                     title  : 'Please Login To Your Account',
+                     showConfirmButton:false,
+                     timer : 1500,
+                 })
+             
+         }
+     })
+    }
+ 
+ 
+ </script>
+
+
+<%- include('../layouts/userLayouts/footer.ejs') %>

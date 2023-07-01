@@ -1,0 +1,258 @@
+
+<%- include('../layouts/adminLayouts/header.ejs') %>
+<%- include('../layouts/adminLayouts/sidebar.ejs') %>
+<%- include('../layouts/adminLayouts/navbar.ejs') %>
+      <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+              <div class="row d-flex justify-content-center">
+                <div class="col-9 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">EDIT PRODUCT</h4>
+                      
+                      <form class="form-sample" action="" method="post" enctype="multipart/form-data" id="form">
+                        
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label">Product Name</label>
+                              <div class="col-sm-9">
+                                <input type="text" class="form-control" id="pname" name="productName" value="<%= products.productName %>"/>
+                                <span class="text-danger " id="pnameError"></span>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label">ideal for</label>
+                              <div class="col-sm-9">
+                                <select class="form-control" name="idealfor">
+                                  <option>Men</option>
+                                  <option>Woman</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label">Price</label>
+                              <div class="col-sm-9">
+                                <input type="number" class="form-control" id="price" name="price" value="<%= products.price %>"/>
+                                <span class="text-danger " id="priceError"></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label">Category</label>
+                              <div class="col-sm-9">
+                                <select class="form-control" name="category">
+                                   
+                                  <% category.forEach(cat => { %>
+                                    <option value="<%= cat._id %>"><%= cat.categoryName %></option>
+                                  <% }) %>
+                                  
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                                <label>File upload</label>
+                                
+                                <div class="input-group col-xs-12">
+                                  <% products.image.forEach((x,index) => { %>
+                                    <img src="/adminAssets/adminImages/<%= x %>" alt="" width="60px" height="50">
+                                  <% }) %>
+                                </div>
+                              </div>
+                              <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                              data-bs-target="#exampleModal">
+                              edit image
+                            </button>
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label">brand</label>
+                              <div class="col-sm-9">
+                                <select class="form-control" name="brand">
+                                  <option>Fossil</option>
+                                  <option>Calvin Klein</option>
+                                  <option>Titan</option>
+                                  <option>Casio</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </div>
+                       
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label">stock Quantity</label>
+                              <div class="col-sm-9">
+                                <input type="number" class="form-control" id="stock" name="StockQuantity" value="<%= products.StockQuantity %>" />
+                                <span class="text-danger " id="stockError"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label">Description</label>
+                              <div class="col-sm-9">                               
+                                <input class="form-control" id="description" name="description" value="<%= products.description %>"> 
+                                <span class="text-danger " id="descriptionError"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label">offer Name</label>
+                              <div class="col-sm-9">                               
+                                <input class="form-control" name="offName" value="<%= products.offName %>"> 
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group row">
+                              <label class="col-sm-3 col-form-label">offer % </label>
+                              <div class="col-sm-9">                               
+                                <input class="form-control" name="offPercentage" value="<%= products.offPercentage %>"> 
+                              </div>
+                            </div>
+                          </div>
+
+                        </div><br>
+                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                             <a type="button" class="btn btn-dark" href="/admin/productList">Cancel</a>
+                      </form>
+                    </div>
+                  </div>
+                  </div>
+              </div>
+            </div>
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Image editing</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- form starts -->
+                <form action="/admin/editproducts/updateimage/<%- products._id  %>" method="post" id="imgForm"
+                  enctype="multipart/form-data">
+                  <div class="modal-body">
+
+                    <input multiple type="file" class="form-control" id="imageValidate" name="image" />
+                    <p class="text-danger " id="imageError"></p>
+                    <br>
+                    <% products.image.forEach((x,index)=> { %>
+
+                      <img class="mb-3" src="/adminAssets/adminImages/<%= x %>" alt="" width="60px" height="50">
+                      <!-- dlete button -->
+                      <a href="/admin/deleteimg/<%= x %>/<%= products._id%>">
+                        <button type="button" class="btn btn-danger mb-4" data-bs-dismiss="modal">delete</button>
+                      </a>
+
+                      <br>
+
+                      <% }); %>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                  </div>
+              </div>
+              </form>
+            </div>
+          </div>
+
+          <script>
+            const form = document.getElementById("form");
+            const productName = document.getElementById("pname");
+            const price = document.getElementById("price");
+            const StockQuantity = document.getElementById("stock");
+            const description = document.getElementById("description");
+           
+    
+            const proNameError = document.getElementById("pnameError");
+            const priceError = document.getElementById("priceError");
+            const stockError = document.getElementById("stockError");
+            const descriptionError = document.getElementById("descriptionError");
+            
+    
+            form.addEventListener("submit", (event) => {
+            event.preventDefault();
+    
+            const productNamevalue = productName.value.trim();
+            const pricevalue = price.value.trim();
+            const StockQuantityvalue = StockQuantity.value.trim();
+            const descriptionvalue = description.value.trim();
+            
+            if (!productNamevalue) {
+              proNameError.textContent = "Please Enter Product Name";
+              return;
+            } else {
+              proNameError.textContent = "";
+            }
+    
+            if(!pricevalue){
+              priceError.textContent = "Please Enter Price";
+              return
+            }else if(pricevalue < 0){
+              priceError.textContent = "Please Enter a positive Number";
+              return
+            }else{
+              priceError.textContent ="";
+            }
+    
+            if(!StockQuantityvalue){
+              stockError.textContent = "Please Enter Stock Quantity"
+              return
+            }else if(StockQuantityvalue < 0){
+              stockError.textContent = "Please Enter Positive Number"
+              return
+            }else{
+              stockError.textContent = ""
+            }
+    
+            if (!descriptionvalue) {
+              descriptionError.textContent = "Please Enter Description";
+              return;
+            }
+    
+
+            form.submit();
+          });
+    
+          const imgForm = document.getElementById("imgForm")
+          const imageValidate = document.getElementById("imageValidate");
+          const imageError = document.getElementById("imageError");
+          imgForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+
+          const image = imageValidate.files[0];
+                 if (!image) {
+                  imageError.textContent = 'Please select an image';
+                  return;
+                } else {
+                  const allowedExtensions = /\.(jpg|jpeg|png|gif)$/i;
+                if (!allowedExtensions.test(image.name)) {
+                imageError.textContent = "Invalid image file format";
+               return;
+              }
+             imageError.textContent = "";
+            }
+            imgForm.submit();
+          })
+            
+    </script>
+<%- include('../layouts/adminLayouts/footer.ejs') %>

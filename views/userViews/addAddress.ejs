@@ -1,0 +1,142 @@
+<%- include('../layouts/userLayouts/header.ejs') %>
+<%- include('../layouts/userLayouts/navbar.ejs') %>
+<main class="main">
+<div class="page-content">
+    <div class="dashboard">
+        <div class="container d-flex justify-content-center">
+
+<div class="col-lg-4 col-md-6">
+    <form action="" method="post" id="form">
+        
+        <label>Full Name *</label>
+        <input type="text" class="form-control" name="name" id="name">
+        <p class="text-danger " id="nameError"></p>
+
+        <label>Mobile number *</label>
+        <input type="text" class="form-control" name="mobile" id="mobile">
+        <p class="text-danger " id="mobileError"></p>
+
+        <label>House Name *</label>
+        <input type="text" class="form-control" name="house" id="house">
+        <p class="text-danger " id="houseError"></p>
+
+        <label>city</label>
+        <input type="text" class="form-control" name="city" id="city">
+        <p class="text-danger " id="cityError"></p>
+
+        <label>State</label>
+        <input type="text" class="form-control" name="state" id="state">
+        <p class="text-danger " id="stateError"></p>
+
+        <label>Pincode</label>
+        <input type="text" class="form-control mb-2" name="pincode" id="pincode">
+        <p class="text-danger " id="pincodeError"></p>
+
+        <label>Landmark</label>
+        <input type="text" class="form-control mb-2" name="landmark" id="landmark">
+        <p class="text-danger " id="landmarkError"></p>
+
+        <button type="submit" class="btn btn-outline-primary-2">
+            <span>SAVE</span>
+            <i class="icon-long-arrow-right"></i>
+        </button>
+    </form>
+</div><!-- .End .tab-pane -->
+</div>
+</div>
+</div>
+
+</main>
+<script>
+      const form = document.getElementById("form");
+      const name = document.getElementById("name");
+      const mobile = document.getElementById("mobile");
+      const house = document.getElementById("house");
+      const city = document.getElementById("city");
+      const state = document.getElementById("state");
+      const pincode = document.getElementById("pincode");
+      const landmark = document.getElementById("landmark");
+
+      const nameError = document.getElementById("nameError");
+      const mobileError = document.getElementById("mobileError");
+      const houseError = document.getElementById("houseError");
+      const cityError = document.getElementById("cityError");
+      const stateError = document.getElementById("stateError");
+      const pincodeError = document.getElementById("pincodeError");
+      const landmarkError = document.getElementById("landmarkError");
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const nameValue = name.value.trim()
+        const mobileValue = mobile.value.trim()
+        const houseValue = house.value.trim()
+        const cityValue = city.value.trim()
+        const stateValue = state.value.trim()
+        const pincodeValue = pincode.value.trim()
+        const landmarkValue = landmark.value.trim()
+
+        if (!nameValue) {
+            nameError.textContent = "Please Enter Your Name";
+          return;
+        } else {
+            nameError.textContent = "";
+        }
+
+        if (!mobileValue) {
+            mobileError.textContent = "Please Enter Mobile Number";
+          return;
+        } else if(isNaN(Number(mobileValue))) {
+            mobileError.textContent = "Only Numbers allowed";
+            return
+        }else if(mobileValue.length < 10) {
+            mobileError.textContent = "invalid mobile Number";
+            return
+        }else{
+            mobileError.textContent = ""
+        }
+
+        if (!houseValue) {
+            houseError.textContent = "Please Enter House Name";
+          return;
+        }else{
+            houseError.textContent = ""
+        }
+
+        if (!cityValue) {
+            cityError.textContent = "Please Enter city Name";
+          return;
+        }else{
+            cityError.textContent = ""
+        }
+
+        if (!stateValue) {
+            stateError.textContent = "Please Enter state Name";
+          return;
+        }else{
+            stateError.textContent = ""
+        }
+
+        if (!pincodeValue) {
+            pincodeError.textContent = "Please Enter pincode";
+          return;
+        }else if(isNaN(Number(pincodeValue))){
+            pincodeError.textContent = "Only numbers Allowed"
+            return
+        }else{
+            pincodeError.textContent = ""
+        }
+
+        if (!landmarkValue) {
+            landmarkError.textContent = "Please Enter Landmark";
+          return;
+        }else{
+            landmarkError.textContent = "";
+        }
+        form.submit();
+      })
+
+
+
+</script>
+<%- include('../layouts/userLayouts/accountfooter.ejs') %>
+<%- include('../layouts/userLayouts/footer.ejs') %>

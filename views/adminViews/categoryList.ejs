@@ -1,0 +1,167 @@
+<%- include('../layouts/adminLayouts/header.ejs') %>
+<%- include('../layouts/adminLayouts/sidebar.ejs') %>
+<%- include('../layouts/adminLayouts/navbar.ejs') %>
+      <!-- partial -->
+      
+
+
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+              
+              
+              <div class="row d-flex justify-content-center">
+                <div class="col-lg-10 grid-margin stretch-card">
+                  <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">CATEGORY</h4><span><div class="d-flex justify-content-end">
+                    <a type="button" class="btn btn-outline-success" style="margin-top: 10px;margin-left: 10px;margin-bottom: 10px;" data-bs-toggle="modal" data-bs-target="#addcategory">
+                      ADD CATEGORY
+                    </a>
+                  </div></span>
+                  
+
+                  
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+
+
+                        <!-- ================================ ADD CATEGORY ============================= -->
+                        <div class="row d-flex justify-content-center">
+                          <div class="col-lg-10 grid-margin stretch-card">
+                            <div class="card">
+                          <div class="card-body">
+                            <h4 class="card-title">Category List</h4>
+                  <div class="modal fade" id="addcategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <!-- <h4 class="modal-title fs-5" id="exampleModalLabel">ADD PRODUCT</h4> -->
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                    
+                            <form class="forms-sample" method="post" id="addform" action="/admin/insertCategory">
+                              <div class="form-group">
+                                <label for="exampleInputName1">CATEGORY NAME</label>
+                                <input type="text" class="form-control" id="categoryName" placeholder="Name" name="categoryName">
+                                <span class="text-danger " id="catError"></span>
+                              </div>
+                              
+                             <button type="submit" class="btn btn-primary mr-2" >Submit</button>
+                              <button type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  <!-- </p> -->
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>NO</th>
+                          <th>NAME</th>
+                          <th>ACTIONS</th>
+                          <th></th>
+                         
+                        </tr>
+                      </thead>
+                      <tbody>
+                      
+                        <% if (category.length > 0) { %>
+                          <% for (var i = 0; i < category.length; i++) { %>
+                            <tr>
+                              <td><%= i + 1 %></td>
+                              <td><%= category[i].categoryName %></td>
+                              <td>
+                                <% if (category[i].is_deleted == true){
+                                  %>
+                                <a class="btn btn-success" href="/admin/listcategory?id=<%= category[i]._id%>">list</a>
+                                <% }else{%>
+                                 <a class="btn btn-danger" href="/admin/unlistcategory?id=<%= category[i]._id %>">unlist</a>
+                               </td>  
+                              <!-- <td><a href="/admin/editCatogary?id=<%=category[i]._id%>" class="" href="" data-bs-target="#editcategory">
+                                Edit
+                              </a></td> --> <td>
+                                
+                             
+                              <button type="button" class="btn btn-outline-primary "  data-bs-toggle="modal" data-bs-target="#editCategoryModal-<%= category[i]._id %>">EDIT</button>
+                            </td>
+                            <div class="modal fade" id="editCategoryModal-<%=category[i]._id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">EDIT CATEGORY</h5>
+                                    
+                                  </div>
+                                  <div class="modal-body">
+                                    <form action="/admin/editCategory/<%= category[i]._id %>" method="post" class="forms-sample" id="editForm">
+
+                                      <div class="form-group">
+                                        <label for="exampleInputPassword1">Category Name</label>
+                                        <input type="text" class="form-control"  value="<%= category[i].categoryName %>" name="categoryName" id="editCatName">
+                                        <span class="text-danger " id="catEditError"></span>
+                                      </div>
+                                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                        
+                                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                      </form>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                            </tr>
+
+                            
+                          <% } %>
+                        <% } %>
+                        <% } %>
+                          
+                      </tbody>
+                    </table>
+                  </div>
+                  
+                </div>
+                </div>
+                </div>
+              </div>
+              </div>
+              </div>
+              <script>
+                  const form = document.getElementById("addform") 
+                  const categoryName = document.getElementById("categoryName") 
+                  const catError = document.getElementById("catError")
+
+                  form.addEventListener("submit", (event) => {
+                  event.preventDefault();
+                  const catValue = categoryName.value.trim()
+                  if(!catValue){
+                    catError.textContent = "Category Name Can't Be Blank";
+                    return
+                  }else{
+                    catError.textContent = "";
+                  }
+                  form.submit();
+                })
+
+                  const editForm = document.getElementById("editForm") 
+                  const editCatName = document.getElementById("editCatName") 
+                  const catEditError = document.getElementById("catEditError")
+
+                  editForm.addEventListener("submit", (event) => {
+                  event.preventDefault();
+                  const catValue = categoryName.value.trim()
+                  if(!catValue){
+                    catEditError.textContent = "Category Name Can't Be Blank";
+                    return
+                  }else{
+                    catEditError.textContent = "";
+                  }
+                  editForm.submit();
+                })
+              </script>
+              <%- include('../layouts/adminLayouts/footer.ejs') %>

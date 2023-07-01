@@ -1,0 +1,252 @@
+<%- include('../layouts/userLayouts/header.ejs') %>
+<%- include('../layouts/userLayouts/navbar.ejs') %>
+<div class="page-wrapper">
+	
+<main class="main">
+        	
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"></li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+                <div class="container">
+                	<div class="row">
+                		<div class="col-lg-9">
+							
+                			<div class="toolbox">
+                				<div class="toolbox-left">
+                					<div class="toolbox-info">
+                						<div class="header-search header-search-extended header-search-visible mt-0	">
+											<a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+											<form action="/form" method="post">
+												<div class="header-search-wrapper search-wrapper-wide">
+													<label for="q" class="sr-only">Search</label>
+													<input type="search" class="form-control" name="search" id="q" placeholder="Search product ..."  style="width: 50px;" required>
+													<button class="btn btn-primary" type="submit" style="height: 32px;"><i class="icon-search"></i></button>
+												</div><!-- End .header-search-wrapper -->
+											</form>
+										</div><!-- End .header-search -->
+										
+                					</div><!-- End .toolbox-info -->
+                				</div><!-- End .toolbox-left -->
+
+                				<div class="toolbox-right ">
+                					<div class="toolbox-sort mt-0">	
+                						<!-- <label for="sortby">Sort by:</label> -->
+                						<div class="select-custom">
+											<!-- <select name="sortby" id="sortby"  class="form-control">
+												<option value="popularity" selected="selected">All</option>
+											<option><a href="/priceSort/<%= -1 %>">Price Low To High</a></option>
+											<option><a href="/priceSort/<%= 1 %>">Price Hight To Low</a></option>
+											</select> -->
+										</div>
+                					</div><!-- End .toolbox-sort -->
+                					
+                				</div><!-- End .toolbox-right -->
+                			</div><!-- End .toolbox -->
+
+                            <div class="products mb-3">
+                                <div class="row justify-content-center">
+                                    <%
+                                    if(productData.length > 0){
+                                        for(let i = 0;i<productData.length;i++){
+                                            %>
+                                    <div class="col-6 col-md-4 col-lg-4">
+                                        <div class="product product-7 text-center">
+
+                                            <figure class="product-media">
+                                                
+                                                <a href="/showProduct/<%=productData[i]._id%>">
+                                                    <img src="/adminAssets/adminImages/<%=productData[i].image[0]%>" alt="Product image" class="product-image">
+                                                </a>
+
+                                                <div class="product-action-vertical">
+                                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                                   
+                                                </div><!-- End .product-action-vertical -->
+
+                                                <div class="product-action">
+                                                    
+													
+
+
+
+													<!-- <button class="btn-product btn-cart" onclick="addtocart('<%=productData[i]._id%>')">Add To Cart</button> -->
+                                                
+												
+												
+												</div><!-- End .product-action -->
+                                            </figure><!-- End .product-media -->
+											<% if(productData[i].offPercentage > 0){ %>
+												<span class="product-label label-new"><%= productData[i].offPercentage %> % off</span>
+												<% }else{%>
+
+													<%	} %>
+											
+                                            <div class="product-body">
+                                                <div class="product-cat">
+                                                    <a href="#"><%=productData[i].idealfor%></a>
+                                                </div><!-- End .product-cat -->
+                                                <h3 class="product-title"><a href="/showProduct/<%=productData[i]._id%>"><%=productData[i].productName%></a></h3><!-- End .product-title -->
+                                                <div class="product-price">
+												<%	if(productData[i].offPrice > 0){ %>
+														<del class="text-danger">₹ <%= productData[i].price %>.00</del> &nbsp; &nbsp; ₹ <%= productData[i].offPrice %>.00
+														<% }else{ %>
+														₹ <%=productData[i].price%>.00
+														<%	} %>
+                                                    
+                                                </div><!-- End .product-price -->
+                                               
+
+                                                
+                                            </div><!-- End .product-body -->
+                                        </div><!-- End .product -->
+                                    </div><!-- End .col-sm-6 col-lg-4 -->
+
+                                    
+                                    <%
+                                }
+                            }
+                                    %>
+                                    
+                                    
+                                </div><!-- End .row -->
+                            </div><!-- End .products -->
+
+
+
+
+							<div class="ec-pro-pagination ">
+                                
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                                        <a class="prev" href="?page=<%= currentPage - 1 %>" aria-label="Previous" tabindex="-1" aria-disabled="true">
+                                            <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
+                                        </a>
+                                    </li>
+                                    <% for (let i = 1; i <= totalPages; i++) { %>
+                                <li class="page-item <%= currentPage === i ? 'active' : '' %> ms-2" aria-current="page">
+                                    <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                                </li>
+                                   <% } %>
+                                   <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                                <a class="next" href="?page=<%= currentPage + 1 %>" aria-label="Next">
+                                    Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
+                                </a>
+                               </li>
+
+                                </ul>
+                            </div>
+
+
+
+
+                		</div><!-- End .col-lg-9 -->
+                		<aside class="col-lg-3 order-lg-first">
+                			<div class="sidebar sidebar-shop">
+                				<div class="widget widget-clean">
+                					<label>Filters:</label>
+                					<a href="/shop">Clean All</a>
+                				</div><!-- End .widget widget-clean -->
+
+                				<div class="widget widget-collapsible">
+    								<h3 class="widget-title">
+									    <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
+									        Category
+									    </a>
+									</h3><!-- End .widget-title -->
+
+									<div class="collapse show" id="widget-1">
+										<div class="widget-body">
+											<div class="filter-items filter-items-count">
+
+												<% category.forEach(cat => { %>
+
+												<div class="filter-item">
+													<div class="custom-control custom-checkbox">
+														
+														<a class=""  href="/filterCategory/<%= cat._id %>"><%= cat.categoryName %></a>
+													</div><!-- End .custom-checkbox -->											
+												</div><!-- End .filter-item -->
+												<% }) %>
+
+												
+											</div><!-- End .filter-items -->
+										</div><!-- End .widget-body -->
+									</div><!-- End .collapse -->
+        						</div><!-- End .widget -->
+
+        						
+
+        						
+
+        						<div class="widget widget-collapsible">
+    								<h3 class="widget-title">
+									    <a data-toggle="collapse" href="#widget-4" role="button" aria-expanded="true" aria-controls="widget-4">
+									        Sort By Price
+									    </a>
+									</h3>
+
+									<div class="collapse show" id="widget-4">
+										<div class="widget-body">
+											<div class="filter-items">
+												<div class="filter-item">
+													<div class="custom-control custom-checkbox">
+														<!-- <input type="checkbox" class="custom-control-input" id="brand-1"> -->
+														<ul>
+
+															<li><a href="/priceSort/<%= 1 %>">Price Low To High</a></li>
+															<li><a href="/priceSort/<%= -1 %>">Price Low To High</a></li>
+														</ul>
+														
+														
+													</div><!-- End .custom-checkbox -->
+												</div><!-- End .filter-item -->
+											</div><!-- End .filter-items -->
+										</div><!-- End .widget-body -->
+									</div><!-- End .collapse -->
+        						</div>
+
+        						
+                			</div><!-- End .sidebar sidebar-shop -->
+                		</aside><!-- End .col-lg-3 -->
+                	</div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+	</div>
+	<script>
+
+		function addtocart(productid){
+			
+		 $.ajax({
+			 url:"/addtocart",
+			 method:"post",
+			 data:{
+				 id:productid
+			 },
+			 success:(response)=>{
+				 if(response.success){
+					 swal.fire({
+						 positon:'center',
+						 icon:"success",
+						 title  : 'product added to cart',
+						 showConfirmButton:false,
+						 timer : 1500,
+					 })
+				 }
+			 }
+		 })
+		}
+	 
+		
+	 </script>
+
+
+<%- include('../layouts/userLayouts/footer.ejs') %>
