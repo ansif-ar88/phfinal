@@ -69,14 +69,14 @@ adminRoute.post("/addOffer",Auth.isLogin,offerController.addOffer)
 //========== BANNER MANAGEMENT ==============
 
 adminRoute.get("/banner",Auth.isLogin,bannerController.loadBannerManagement)
-adminRoute.post("/addbanner",upload.upload.single('image'),Auth.isLogin,bannerController.addBanner)
-
-
-adminRoute.post('/editBanner', upload.upload.single('image'),Auth.isLogin, bannerController.editBanner);
+adminRoute.post("/addbanner",upload.upload.single('image'),bannerController.addBanner)
+adminRoute.post('/editBanner', upload.upload.single('image'),bannerController.editBanner);
+adminRoute.post("/deleteBanner",bannerController.deleteBanner) 
  
 
 
 adminRoute.use(errorHandler)
+
 
 adminRoute.get("*",function(req,res) {
     res.redirect("/admin")

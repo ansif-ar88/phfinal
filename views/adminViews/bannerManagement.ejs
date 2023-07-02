@@ -81,6 +81,9 @@
                       <td>
                         <button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#editBannerModal">EDIT</button>
                       </td>
+                      <td>
+                        <a onclick="deleteBanner('<%= banner._id %>')" type="button" class="btn btn-outline-danger">DELETE</a>
+                      </td>
                     </tr>
                     <!-- Edit Banner Modal -->
                     <div class="modal fade" id="editBannerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -115,7 +118,7 @@
                                 <label>Choose Image</label> 
                                   <div class="input-group col-xs-12">
                                       <input class="bt" style="height: 40px;width: 500px ; background-color: rgb(130, 130, 130);color: white;" accept="Image/*" type="file" name="image" id="imgValidate">
-                                      <span class="text-danger " id="imgError"></span>
+                                      
                                     </div>
 
                              
@@ -141,6 +144,43 @@
   </div>
 </div>
 <script>
+
+function deleteBanner(id) {
+   
+   Swal.fire({
+       title: 'Are you sure?',
+       text: "You want to Delete Banner !",
+       icon: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#3085d6',
+       cancelButtonColor: '#d33',
+       confirmButtonText: 'Yes, delete!'
+   }).then((result) => {
+       if (result.isConfirmed) {
+           $.ajax({
+               url: "/admin/deleteBanner",
+               data: {
+                   id: id
+               },
+               method: 'post',
+               success: (response) => {
+                   location.reload();
+               },
+               error: (error) => {
+                   Swal.fire({
+                       title: 'Error!',
+                       text: 'An error occurred while deleting the item.',
+                       icon: 'error',
+                       showConfirmButton: false
+                   });
+               }
+           });
+       }
+   });
+   }
+
+
+
   const form = document.getElementById("addForm");
   const heading = document.getElementById("heading");
   const imageValidate = document.getElementById("imageValidate");
@@ -175,10 +215,9 @@
 
   const editForm = document.getElementById("editForm");
   const headingEdit = document.getElementById("headingEdit");
-  const imgValidate = document.getElementById("imgValidate");
 
   const headingEditError = document.getElementById("headingEditError");
-  const imgError = document.getElementById("imgError");
+
 
   editForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -190,18 +229,6 @@
         } else {
           headingEditError.textContent = "";
         }
-        const image = imgValidate.files[0];
-    if (!image) {
-      imgError.textContent = 'Please select an image';
-      return;
-    } else {
-      const allowedExtensions = /\.(jpg|jpeg|png|gif)$/i;
-      if (!allowedExtensions.test(image.name)) {
-        imgError.textContent = "Invalid image file format";
-        return;
-      }
-      imgError.textContent = "";
-    }
     editForm.submit();
   })
 </script>

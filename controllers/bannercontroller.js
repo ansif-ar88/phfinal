@@ -56,9 +56,24 @@ const editBanner = async (req,res,next) =>{
     next(error);
   }
 }
+// =================== DELETE BANNER ===============
 
+const deleteBanner = async(req,res,next) => {
+  try {
+    const id = req.body.id
+    const deleteBanner = await bannermodel.findByIdAndDelete(id)
+    if(deleteBanner){
+      res.redirect("/admin/banner")
+    }else{
+      res.redirect("/admin/banner")
+    }
+  } catch (error) {
+    next(error)
+  }
+}
 module.exports = {
     loadBannerManagement,
     addBanner,
     editBanner,
+    deleteBanner
 }

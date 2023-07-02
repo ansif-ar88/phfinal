@@ -73,7 +73,6 @@ const editCoupon = async(req,res,next) => {
 const deleteCoupon = async(req,res,next) => {
     try {
         const id = req.body.id
-        console.log(id);
         const DeleteCoupon = await couponmodel.findByIdAndDelete(id)
         if(DeleteCoupon){
             res.redirect("/admin/coupons")
