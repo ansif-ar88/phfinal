@@ -1,7 +1,7 @@
 const dotenv = require("dotenv")
 dotenv.config()
 const mongoose = require("mongoose");
-mongoose.connect(process.env.mongo)
+mongoose.connect("mongodb+srv://ansifar88:430lxHOxpOXLSCRc@cluster0.djkxvzk.mongodb.net/")
 const express = require("express");
 const app = express();
 const session = require("express-session");
