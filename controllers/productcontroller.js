@@ -22,7 +22,7 @@ const productList = async (req,res,next) => {
 
 //============= INSERT PRODUCT ===================
 
-const insertProduct = async(req,res) => {
+const insertProduct = async(req,res,next) => {
        try {
         const image = [];
         if (req.files && req.files.length > 0) {
@@ -50,7 +50,7 @@ const insertProduct = async(req,res) => {
             return res.redirect('/admin/productList')
         }
        } catch (error) {
-        console.log(error.message);
+        next(error);
        } 
 }
 // ======================== SHOW EDIT PRODUCT  =====================
@@ -109,7 +109,7 @@ const editUpdateProduct = async (req,res,next) =>{
 
 //===================== DELETE IMAGE ==============
 
-const deleteimage = async(req,res)=>{
+const deleteimage = async(req,res,next)=>{
      try{
       const imgid =req.params.imgid
       const prodid =req.params.prodid
@@ -122,14 +122,14 @@ const deleteimage = async(req,res)=>{
   
   
     }catch(error){
-      console.log(error.message)
+      next(error)
     }
   
   }
 
 // =================== UPDATE IMAGE ==============
 
-const updateimage = async (req, res) => {
+const updateimage = async (req, res,next) => {
 
     try {
   
@@ -162,21 +162,21 @@ const updateimage = async (req, res) => {
       }
   
     } catch (error) {
-      console.log(error.message);
+      next(error);
     }
   
   }
 
   // ======================= DELETE PRODUCT ====================
 
-  const deleteProduct = async (req,res)=> {
+  const deleteProduct = async (req,res,next)=> {
     try{
       const id = req.query.id; 
       const product =   await productmodel.updateOne({ _id: id }, { $set: { Status: false } });
       res.redirect('/admin/productList');
   
     }catch(error){
-      console.log(error.message);
+      next(error);
     }
   }
 module.exports = {

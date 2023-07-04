@@ -10,17 +10,17 @@ const fs =require('fs')
 const path =require('path')
 
 //============== LOAD LOGIN PAGE ================
-const loadLogin = async (req, res) => {
+const loadLogin = async (req, res,next) => {
   try {
     res.render("login");
   } catch (error) {
-    console.log(error.message);
+    next(error);
   }
 };
 
 //=============== VERIFY LOGIN ==============
 
-const verifyLogin = async (req, res) => {
+const verifyLogin = async (req, res,next) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
@@ -46,101 +46,10 @@ const verifyLogin = async (req, res) => {
          });
     }
   } catch (error) {
-    console.log(error.message);
+    next(error);
   }
 };
 
-//===================== LOAD DASHBOARD ================
-
-// const  loadDashboard = async (req, res) => {
-//   try {
-//     const adminData = await usermodel.findById({ _id: req.session.Auser_id });
-//     const userData = await usermodel.find({is_admin:0})
-//     const totalOrders = await ordermodel.find() 
-//     const totalProducts = await productmodel.find()
-//     const deliveredOrder = ordermodel.find({'products.status':'Delivered'}).populate('products.productId')
-  
-//     //  === TOTAL SALES AMOUNT===
-//     const totalSales = await ordermodel.aggregate([
-//       { $unwind: "$products" },
-//       { $match: {'products.status':'Delivered'} },
-//       {
-//         $group: {
-//           _id: null,
-//           total: { $sum: '$products.totalPrice' }
-//         }
-//       },
-//       {
-//         $project: {
-//           _id: 0,
-//           total: 1
-//         }
-//       }
-//     ]);
-//     const total = totalSales[0].total;
-
-//     //==== TOTAL COD ====
-//     const CODTotal = await ordermodel.aggregate([
-//       { $unwind: "$products" },
-//       { $match: { 'products.status': 'Delivered', paymentMethod: 'COD' } },
-//       {
-//         $group: {
-//           _id: null,
-//           total: { $sum: '$products.totalPrice' }
-//         }
-//       },
-//       {
-//         $project: {
-//           _id: 0,
-//           total: 1
-//         }
-//       }
-//     ]);
-    
-//     let codTotal = 0
-//     if (CODTotal.length > 0) {
-//       codTotal = CODTotal[0].total;
-//     } 
-
-//     //======= TOTAL ONLINEPAYMENT =======
-
-//     const onlinePaymentTotal = await ordermodel.aggregate([
-//       { $unwind: "$products" },
-//       { $match: { 'products.status': 'Delivered', 'paymentMethod': { $ne: 'COD' } } },
-//       {
-//         $group: {
-//           _id: null,
-//           total: { $sum: '$products.totalPrice' }
-//         }
-//       },
-//       {
-//         $project: {
-//           _id: 0,
-//           total: 1
-//         }
-//       }
-//     ]);
-    
-//     let onlineTotal = 0;
-//     if (onlinePaymentTotal.length > 0) {
-//       onlineTotal = onlinePaymentTotal[0].total;
-//     }
-    
-//     res.render("dashBoard"
-//     , {
-//       admin: adminData,
-//       users:userData,
-//       total,
-//       totalOrders,
-//       totalProducts,
-//       codTotal,
-//       onlineTotal
-//     }
-//     );
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// };
 const loadDashboard = async (req, res) => {
   try {
     const adminData = await usermodel.findById({ _id: req.session.Auser_id });
@@ -213,7 +122,7 @@ const loadDashboard = async (req, res) => {
     const totalOrders = await ordermodel.find();
     const totalProducts = await productmodel.find();
 
-    res.render("dashboard", {
+    res.render("dashBoard", {
       admin: adminData,
       users: userData,
       total,
@@ -230,18 +139,18 @@ const loadDashboard = async (req, res) => {
 
 //===================== LOGOUT ADMIN ==================
 
-const adminLogout = async (req,res)=>{
+const adminLogout = async (req,res,next)=>{
   try{
       req.session.destroy();
       res.redirect('/admin')
   }catch(error){
-      console.log(error.message);
+    next(error);
   }
 }
 
 //=================== LOAD ALL USERS ==================
 
-const userList = async (req,res) => {
+const userList = async (req,res,next) => {
   try {
     const userData = await usermodel.find({is_admin:0});
     const adminData = await usermodel.findById({ _id: req.session.Auser_id });
@@ -250,33 +159,33 @@ const userList = async (req,res) => {
     ,{users: userData,admin:adminData}
     );
   } catch (error) {
-    console.log(error.message);
+    next(error);
   }
 }
 //============================= BLOCK AND UNBLOCK USER ================================
 
-const block = async (req,res)=> {
+const block = async (req,res,next)=> {
     try {
       const userData = await usermodel.findByIdAndUpdate(req.query.id,{$set:{is_blocked:true}})
       req.session.user = null
       res.redirect("/admin/userList")
     } catch (error) {
-      console.log(error.message);
+      next(error);
     }
 }
-const unblock = async (req,res)=> {
+const unblock = async (req,res,next)=> {
     try {
       const userData = await usermodel.findByIdAndUpdate(req.query.id,{$set:{is_blocked:false}})
       
       res.redirect("/admin/userList")
     } catch (error) {
-      console.log(error.message);
+      next(error);
     }
 }
 
 //===================== LOAD SALES REPORT ======================
 
-const loadSalesReport = async (req,res) => {
+const loadSalesReport = async (req,res,next) => {
   try {
     const adminId = req.session.Auser_id
     const adminData = await usermodel.findById({ _id: adminId });
@@ -306,11 +215,11 @@ const loadSalesReport = async (req,res) => {
       order
     })
   } catch (error) {
-    console.log(error.message);
+    next(error);
   }
 }
 
-const salesSort = async(req,res) =>{
+const salesSort = async(req,res,next) =>{
   try {
     const adminData = await usermodel.findById({ _id: req.session.Auser_id });
     const id = parseInt(req.params.id);
@@ -347,7 +256,7 @@ const salesSort = async(req,res) =>{
     res.render("salesreport", { order ,admin:adminData });
    
   } catch (error) {
-    console.log(error.message);
+    next(error);
   }
 }
 
@@ -361,8 +270,6 @@ module.exports = {
   block,
   unblock,
   loadSalesReport,
-  salesSort
- 
+  salesSort,
 
-  
 };

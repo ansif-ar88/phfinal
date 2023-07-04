@@ -71,9 +71,11 @@ const deleteBanner = async(req,res,next) => {
     next(error)
   }
 }
+
 module.exports = {
     loadBannerManagement,
     addBanner,
     editBanner,
-    deleteBanner
+    deleteBanner,
+   
 }

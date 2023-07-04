@@ -1,6 +1,4 @@
-// const { match } = require ('assert')
 const cartmodel = require("../modals/cartmodel");
-// const categorymodel = require ('../modals/categorymodel')
 const session = require ('express-session')
 const usermodel = require("../modals/usermodal");
 const productmodel = require("../modals/productmodel");
@@ -216,7 +214,7 @@ const changeProductCount = async (req, res,next) => {
 
 
 //======================= DELETE PRODUCT FROM CART ==================
-const deletecart = async(req,res)=>{
+const deletecart = async(req,res,next)=>{
   try{
    const id = req.session.user_id
    const proid = req.body.product
@@ -236,7 +234,7 @@ const deletecart = async(req,res)=>{
 
       
   }catch(error){
-    console.log(error.message);
+    next(error);
   }
   
 }

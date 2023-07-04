@@ -257,7 +257,7 @@ const loadViewSingleAdmin = async (req,res,next)=> {
 }
 
 //======================== CANCEL ORDER =====================
-const CancelOrder = async (req, res) => {
+const CancelOrder = async (req, res,next) => {
   try {
     const id = req.body.orderid;
     const reason = req.body.reason
@@ -300,12 +300,12 @@ const CancelOrder = async (req, res) => {
       res.redirect("/vieworder/" + ordersId)
     }
   } catch (error) {
-    console.log(error.message);
+    next(error);
   }
 };
 
 // ================ CHANGE STATUS OR FLOW OF ORDER CHANGE =============
-const changeStatus = async(req,res) =>{
+const changeStatus = async(req,res,next) =>{
   try {
     const id = req.body.id
     const userId = req.body.userId
@@ -341,13 +341,13 @@ const changeStatus = async(req,res) =>{
       res.json({success:true})
     }
   } catch (error) {
-    console.log(error.message);
+    next(error);
   }
 }
 
 // ================== RETURN ORDER ==================
 
-const returnOrder = async(req,res) =>{
+const returnOrder = async(req,res,next) =>{
   try {
     const ordersId = req.body.ordersid;
     const Id = req.session.user_id
@@ -385,7 +385,7 @@ const returnOrder = async(req,res) =>{
    
 
   } catch (error) {
-    console.log(error.message);
+    next(error);
   }
 }
 

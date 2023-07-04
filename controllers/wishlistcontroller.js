@@ -38,7 +38,7 @@ const loadWishlist = async(req,res,next) => {
 
 // ================ ADD TO WISHLIST =============
 
-const addToWishlist = async(req,res) => {
+const addToWishlist = async(req,res,next) => {
     try {
         const userId = req.session.user_id
         const userData = await usermodel.findOne({ _id: userId });
@@ -75,13 +75,13 @@ const addToWishlist = async(req,res) => {
                 }
             
     } catch (error) {
-        console.log(error.message);
+      next(error);
     }
 }
 
 // =================== ADD PRODUCT WISHLIST TO CART ====================
 
-const addToCartFromWish = async (req, res) => {
+const addToCartFromWish = async (req, res,next) => {
     try {
       const userId = req.session.user_id;
       const userData = await usermodel.findOne({ _id: userId });
@@ -144,13 +144,13 @@ const addToCartFromWish = async (req, res) => {
   
       res.json({ success: true });
     } catch (error) {
-      console.log(error.message);
-      res.status(500).json({ success: false, message: "Server Error" });
+      next(error);
+      
     }
   }
 
   //======================= DELETE PRODUCT FROM WISHLIST ==================
-const deleteWishlist = async(req,res)=>{
+const deleteWishlist = async(req,res,next)=>{
   try{
    const id = req.session.user_id
    const proid = req.body.product
@@ -166,7 +166,7 @@ const deleteWishlist = async(req,res)=>{
 
       
   }catch(error){
-    console.log(error.message);
+    next(error);
   }
   
 }

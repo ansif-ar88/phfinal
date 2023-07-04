@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require("express") ;
 const adminRoute = express();
 const multer = require ('multer');
 const upload =require ('../config/multer.js')
@@ -24,7 +24,7 @@ const bannerController = require('../controllers/bannercontroller.js')
 
 adminRoute.get("/",Auth.isLogout,adminController.loadLogin);
 adminRoute.post("/",adminController.verifyLogin)
-adminRoute.get("/dashBoard",Auth.isLogin,adminController.loadDashboard)
+
 adminRoute.get('/logout',Auth.isLogin,adminController.adminLogout)
 adminRoute.get('/userList',Auth.isLogin,adminController.userList)
 adminRoute.get('/block-user',Auth.isLogin,adminController.block);
@@ -73,7 +73,6 @@ adminRoute.post("/addbanner",upload.upload.single('image'),bannerController.addB
 adminRoute.post('/editBanner', upload.upload.single('image'),bannerController.editBanner);
 adminRoute.post("/deleteBanner",bannerController.deleteBanner) 
  
-
 
 adminRoute.use(errorHandler)
 

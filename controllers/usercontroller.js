@@ -36,7 +36,7 @@ const securePassword = async (password) => {
 };
 
 //================= LOAD REGISTER ===============
-const loadRegister = async (req, res) => {
+const loadRegister = async (req,res) => {
   try {
     res.render("signup");
   } catch (error) {
@@ -54,7 +54,7 @@ const loadLogin = async (req, res) => {
 
 //================= INSERT USER ===============
 
-const insertUser = async (req, res) => {
+const insertUser = async (req, res,next) => {
   try {
     
 
@@ -94,7 +94,7 @@ const insertUser = async (req, res) => {
       res.render("signup", { message: "Registration Failed" });
     }
   } catch (error) {
-    console.log(error.message);
+    next(error);
   }
 };
 
@@ -128,11 +128,11 @@ const sendVerifyMail = async (name, email, otp) => {
 
 //================= LOAD OTP ===============
 
-const loadVerification = async(req,res) => {
+const loadVerification = async(req,res,next) => {
   try {
     res.render("otp")
   } catch (error) {
-    console.log(error.message);
+    next(error);
   }
 }
 
@@ -196,7 +196,7 @@ const verifyLogin = async (req, res) => {
 
 //================= LOAD HOME PAGE ===============
 
-const loadHome = async (req, res,next) => {
+const loadHome = async (req, res) => {
   try {
     const id = req.session.user_id
     const session = id
@@ -525,7 +525,7 @@ const loadinvoice = async (req, res,next) => {
     res.setHeader('Content-Disposition', 'attachment; filename= order invoice.pdf');
     res.send(pdfBytes);
 
-  } catch (err) {
+  } catch (error) {
     next(error);
   }
 };

@@ -24,7 +24,7 @@ const loadAddAddress = async (req, res,next) => {
 
 //==================== ADD ADDRESS ====================
 
-const addAddress = async (req, res) => {
+const addAddress = async (req,res,next) => {
   try {
     const addressDetails = await addressmodel.findOne({
       userId: req.session.user_id,
@@ -74,7 +74,7 @@ const addAddress = async (req, res) => {
       }
     }
   } catch (error) {
-    console.log(error.message);
+    next(error);
   }
 };
 
@@ -101,7 +101,7 @@ const loadEditAddress = async (req,res,next) => {
 };
 //================================ EDIT AND SAVE ADDRESS ===================
 
-const editAddress = async (req, res) => {
+const editAddress = async (req,res,next) => {
   if (
     req.body.name.trim() === "" ||
     req.body.mobile.trim() === "" ||
@@ -145,13 +145,13 @@ const editAddress = async (req, res) => {
       );
       res.redirect("/checkout");
     } catch (error) {
-      console.log(error.message);
+      next(error);
     }
   }
 };
 //================== DELETE ADDRESS ===================
 
-const deleteAddress = async (req,res) => {
+const deleteAddress = async (req,res,next) => {
     try {
         const id = req.session.user_id
         const addressId = req.body.address
@@ -164,8 +164,8 @@ const deleteAddress = async (req,res) => {
         }
         res.status(200).json({message:"Address Deleted Successfully"})        
     } catch (error) {
-        console.log(error.message);
-        res.status(500).json({ error: "An error occurred while deleting the address" });
+        next(error);
+        
     }
 }
 

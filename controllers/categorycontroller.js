@@ -72,21 +72,21 @@ const saveCategory = async(req,res,next) =>{
 
 //============== LIST AND UNLIST CATEGORY ==============
 
-const unlistCategory = async (req, res) => {
+const unlistCategory = async (req, res,next) => {
     try {
         const categoryData = await category.findByIdAndUpdate(req.query.id,{$set:{is_deleted : true}})
         res.redirect("/admin/categoryList")
     } catch (error) {
-        console.log(error.message);
+        next(error);
     }
      
   };
-const listCategory = async (req, res) => {
+const listCategory = async (req, res,next) => {
     try {
         const categoryData = await category.findByIdAndUpdate(req.query.id,{$set:{is_deleted : false}})
         res.redirect("/admin/categoryList")
     } catch (error) {
-        console.log(error.message);
+        next(error);
     }
      
   };
