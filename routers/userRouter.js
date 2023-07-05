@@ -53,7 +53,7 @@ userRoute.post('/addtocart',Auth.isLogin,cartController.addToCart);
 userRoute.post('/changeQuantity',Auth.isLogin,cartController.changeProductCount);
 userRoute.post('/deletecart',Auth.isLogin,cartController.deletecart);
 userRoute.get('/cart',Auth.isLogin,cartController.loadCart);
-userRoute.get('/cartEmpty',Auth.isLogin,cartController.loadEmptyCart);
+// userRoute.get('/cartEmpty',Auth.isLogin,cartController.loadEmptyCart);
 
 
 userRoute.get('/address',Auth.isLogin,addressController.showAddress)

@@ -46,7 +46,7 @@ const loadCart = async (req, res,next) => {
           userData:userName
         });
       } else {
-        res.render("CartEmpty", {
+        res.render("cartEmpty", {
            
         userData: userName,
         session,
@@ -54,7 +54,7 @@ const loadCart = async (req, res,next) => {
         });
       }
     }else{
-        res.render("CartEmpty", {
+        res.render("cartEmpty", {
             
             userData: userName,
             session,
@@ -73,13 +73,13 @@ const loadCart = async (req, res,next) => {
 
 //================== LOAD EMPTYCART PAGE ===============
 
-const loadEmptyCart = async (req,res,next) =>{
-    try {
-        res.render("cartEmpty")
-    } catch (error) {
-      next(error);
-    }
-}
+// const loadEmptyCart = async (req,res,next) =>{
+//     try {
+//         res.render("cartEmpty")
+//     } catch (error) {
+//       next(error);
+//     }
+// }
 
 //================ ADD TO CART ===============
 
@@ -243,6 +243,6 @@ module.exports = {
   loadCart,
   addToCart,
   changeProductCount,
-  loadEmptyCart,
+  // loadEmptyCart,
   deletecart
 };
