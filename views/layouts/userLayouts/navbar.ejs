@@ -1,19 +1,27 @@
+
+
 <header class="header header-6">
     <div class="header-top">
-        <div class="container-fluid">
-           
-
-            <div class="header-right my-4">
-                <ul class="top-menu">
+        <div class="container">
+            <div class="header-left">
+                <ul class="top-menu top-link-menu d-none d-md-block">
                     <li>
                         <a href="#">Links</a>
-                        <ul>
-                            
-                            <li ><a href="/wishlist"><i class="icon-heart-o"></i>My Wishlist </a></li>
-                           
-                            
+                    </li>
+
+
+
+                </ul><!-- End .top-menu -->
+            </div><!-- End .header-left -->
+
+            <div class="header-right">
+
+                <ul class="top-menu top-link-menu">
+                    <li>
+                        <a href="#">Links</a>
+                        <ul class="mt-2 " style="font-size: 15px;">
                             <% if (session != null) { %>
-                                <!-- <li ><a href="/profile"><%= userData.name %></a></li> -->
+
                                 <div class="dropdown cart-dropdown">
                                     <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                         <li ><a href="">MY ACCOUNT</a></li>
@@ -41,69 +49,73 @@
                                     </div><!-- End .dropdown-menu -->
                                 </div><!-- End .cart-dropdown -->
                             <% } else { %>
-                                <li><a href="/login"><i class="icon-user "></i> Login</a></li>
+                                <li  ><a href="/login"><i class="icon-user "></i> LOGIN</a></li>
                             <% } %>
-                              
-                                
-                            
                         </ul>
                     </li>
                 </ul><!-- End .top-menu -->
-            </div><!-- End .header-right -->
-        </div><!-- End .container-fluid -->
-    </div><!-- End .header-top -->
 
-    <div class="header-middle sticky-header">
-        <div class="container-fluid">
+             
+            </div><!-- End .header-right -->
+        </div>
+    </div>
+    <div class="header-middle">
+        <div class="container">
             <div class="header-left">
+                <div class="header-search header-search-extended header-search-visible d-none d-lg-block">
+                    <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                   
+                </div><!-- End .header-search -->
+            </div>
+            <div class="header-center">
+                <a href="/home" class="logo">
+                    <img src="/userAssets/images/demos/demo-7/userlogo.jpg" alt="Molla Logo" width="82" height="20">
+                </a>
+            </div><!-- End .header-left -->
+
+            <div class="header-right">
+                <a href="/wishlist" class="wishlist-link">
+                    <i class="icon-heart-o"></i>
+                    
+                    <span class="wishlist-txt">WISHLIST</span>
+                </a>
+
+                <div class="dropdown cart-dropdown">
+                    <a href="/cart" class="dropdown-toggle">
+                        <i class="icon-shopping-cart"></i>
+                    </a>
+
+                </div><!-- End .cart-dropdown -->
+            </div>
+        </div><!-- End .container -->
+    </div><!-- End .header-middle -->
+
+    <div class="header-bottom sticky-header">
+        <div class="container">
+            <div class="header-left">
+                <nav class="main-nav">
+                    <ul class="menu sf-arrows">
+                        <li class="megamenu-container active">
+                            <a href="/home" >Home</a>
+
+                           
+                        </li>
+                        <li>
+                            <a href="/shop">Shop</a>
+                        
+                        </li>
+
+
+                    </ul><!-- End .menu -->
+                </nav><!-- End .main-nav -->
+
                 <button class="mobile-menu-toggler">
                     <span class="sr-only">Toggle mobile menu</span>
                     <i class="icon-bars"></i>
                 </button>
-                
-                <a href="/home" class="logo">
-                    <img src="/userAssets/images/demos/demo-7/userlogo.jpg" alt="Molla Logo" width="105" height="25">
-                </a>
-
-                <nav class="main-nav">
-                    <ul class="menu sf-arrows">
-                        <li class="megamenu-container ">
-                            <a href="/home" >Home</a>
-
-                            
-                        </li>
-                        <li>
-                            <a href="/shop">Shop</a>
- 
-                        </li>
-                        
-                    </ul><!-- End .menu -->
-                </nav><!-- End .main-nav -->
             </div><!-- End .header-left -->
 
-            <div class="header-right">
-                <!-- <div class="header-search header-search-extended header-search-visible">
-                    <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-                    <form action="/form" method="post">
-                        <div class="header-search-wrapper search-wrapper-wide">
-                            <label for="q" class="sr-only">Search</label>
-                            <input type="search" class="form-control" name="search" id="q" placeholder="Search product ..." required>
-                            <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-                        </div><!-- End .header-search-wrapper --
-                    </form>
-                </div>End .header-search -->
-                
-                <div class="dropdown cart-dropdown">
-
-
-                    
-                    <a href="/cart" class="dropdown-toggle" >
-                        
-                        <i class="icon-shopping-cart"></i>
-                    </a>
-                    </div><!-- End .dropdown-menu -->
-                </div><!-- End .cart-dropdown -->
-            </div><!-- End .header-right -->
-        </div><!-- End .container-fluid -->
-    </div><!-- End .header-middle -->
+         
+        </div><!-- End .container -->
+    </div><!-- End .header-bottom -->
 </header><!-- End .header -->
