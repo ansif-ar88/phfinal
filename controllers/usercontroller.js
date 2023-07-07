@@ -427,7 +427,6 @@ const forgotVerifyMail = async (req, res) => {
     const email = req.body.email;
     const userData = await usermodal.findOne({ email: email });
     const name = userData.name;
-    console.log(userData);
     if (userData) {
       randomnumber = Math.floor(Math.random() * 9000) + 1000;
       otpv = randomnumber;
@@ -445,7 +444,6 @@ const forgotVerifyMail = async (req, res) => {
 const verifyForgotMail = async (req, res) => {
   try {
     const otp = req.body.otp;
-    console.log(otp);
     if (otp == otpv) {
       res.render("resubmitPassword");
     } else {
@@ -529,6 +527,24 @@ const loadinvoice = async (req, res,next) => {
     next(error);
   }
 };
+//============================= LOAD ABOUT ====================
+
+const loadAbout = async (req, res, next) => {
+  try {
+    const id = req.session.user_id;
+    let session = id;
+    const userData = await usermodal.find({});
+
+    if (!id) {
+      const nullSession = null;
+      res.render("about", { session: nullSession });
+    } else {
+      res.render("about", { userData, session });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   loadHome,
@@ -551,5 +567,6 @@ module.exports = {
   verifyForgotMail,
   resubmitPassword,
   loadinvoice,
+  loadAbout
 };
 

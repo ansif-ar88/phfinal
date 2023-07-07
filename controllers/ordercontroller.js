@@ -235,7 +235,6 @@ const loadViewSingleUser = async (req,res,next)=> {
     const session =req.session.user_id
     const userdata = await usermodel.findOne({_id: session})
     const orders = await ordermodel.findOne({_id:id}).populate("products.productId")
-  
     res.render("singleOrder",{session,userData:userdata,orders:orders})
   } catch (error) {
     next(error);

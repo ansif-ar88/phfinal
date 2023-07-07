@@ -1,22 +1,43 @@
 <%- include('../layouts/userLayouts/header.ejs') %>
- <%-include('../layouts/userLayouts/navbar.ejs') %>
-
+<%-include('../layouts/userLayouts/navbar.ejs') %>
+<div class="page-wrapper">
+	
+  <main class="main">
+    <div class="page-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9">
  <div id="reloadDiv">
     
 
-   
+ 
     <section class="ec-page-content ec-vendor-uploads ec-user-account pb-5">
-        <div class="d-flex justify-content-center ">
-           
-             <div class="p-5 w-50 h-50" style="border: 1px solid #dee2e6">
-                 <h1>Order Details</h1>
-                <span>Order Date :</span><span class="font-weight-bold" > <%= orders.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).replace(/\//g,'-') %> </span><br>
-                <span>Total Amount : <span class="font-weight-bold"> <%= orders.totalAmount %> </span></span><br>
-                <span>Payment Method :<span class="font-weight-bold"><%= orders.paymentMethod %> </span></span><br>
-                <span> Order Id:</span><span class="font-weight-bold"> <%= orders._id %></span></span><br>
-                <span>Address :</span><span class="font-weight-bold"><%= orders.deliveryAddress %></span></span><br>
-                
-                <a href="/invoiceDownload/<%= orders._id %>" type="button" class="btn btn-outline-primary my-3">Download invoice</a>
+        <div class="col-lg-12 d-flex justify-content-center">                  
+             <div class="col-12" >
+                 <h3 class="mt-2">Order Details</h3>
+                 <p>
+               
+                  <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    VIEW DETAILS
+                  </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                  <div >
+                    <span>Order Date :</span><span class="font-weight-bold" > <%= orders.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).replace(/\//g,'-') %> </span><br>
+                    <span>Total Amount : <span class="font-weight-bold"> <%= orders.totalAmount %> </span></span><br>
+                    <span>Payment Method :<span class="font-weight-bold"><%= orders.paymentMethod %> </span></span><br>
+                    <span> Order Id:</span><span class="font-weight-bold"> <%= orders._id %></span></span><br>
+                    <span>Address :</span><span class="font-weight-bold"><%= orders.deliveryAddress %></span><br>
+                  
+                      <!-- <a href="/invoiceDownload/<%= orders._id %>" type="button" class="btn btn-outline-primary my-3">Download invoice</a> -->
+                    
+
+                      
+                    
+                  </div>
+                </div>
+
+
              </div>
         </div>
         
@@ -128,6 +149,12 @@
 
 
     </section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
     <!-- End User profile section -->
 

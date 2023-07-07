@@ -16,15 +16,54 @@
 
             <div class="header-right">
 
-                <ul class="top-menu top-link-menu">
-                    <li>
-                        <a href="#">Links</a>
+                
+                    </li>
+                </ul><!-- End .top-menu -->
+
+             
+            </div><!-- End .header-right -->
+        </div>
+    </div>
+    <div class="header-middle">
+        <div class="container">
+            <div class="header-left">
+                    
+                <div class="header-search header-search-extended header-search-visible d-none d-lg-block">
+                    <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                   
+                </div><!-- End .header-search -->
+            </div>
+            <div class="header-center">
+                <a href="/home" class="logo">
+                    <img src="/userAssets/images/demos/demo-7/userlogo.jpg" alt="Molla Logo" width="82" height="20">
+                </a>
+            </div><!-- End .header-left -->
+
+            <div class="header-right">
+                <a href="/wishlist" class="wishlist-link">
+                    <i class="icon-heart-o"></i>
+                    
+                    <!-- <span class="wishlist-txt">WISHLIST</span> -->
+                </a>
+
+                <div class="dropdown cart-dropdown">
+                    <a href="/cart" class="dropdown-toggle">
+                        <i class="icon-shopping-cart"></i>
+                    </a>
+
+                </div><!-- End .cart-dropdown -->
+
+
+                <div class="dropdown cart-dropdown">
+                    <a href="/profile" class="dropdown-toggle">
                         <ul class="mt-2 " style="font-size: 15px;">
                             <% if (session != null) { %>
 
                                 <div class="dropdown cart-dropdown">
+                                    <i class="icon-user"></i>
+                                    
                                     <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                        <li ><a href="">MY ACCOUNT</a></li>
+                                        <!-- <li ><a href="">MY ACCOUNT</a></li> -->
                                        
                                     </a>
         
@@ -52,37 +91,7 @@
                                 <li  ><a href="/login"><i class="icon-user "></i> LOGIN</a></li>
                             <% } %>
                         </ul>
-                    </li>
-                </ul><!-- End .top-menu -->
-
-             
-            </div><!-- End .header-right -->
-        </div>
-    </div>
-    <div class="header-middle">
-        <div class="container">
-            <div class="header-left">
-                <div class="header-search header-search-extended header-search-visible d-none d-lg-block">
-                    <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-                   
-                </div><!-- End .header-search -->
-            </div>
-            <div class="header-center">
-                <a href="/home" class="logo">
-                    <img src="/userAssets/images/demos/demo-7/userlogo.jpg" alt="Molla Logo" width="82" height="20">
-                </a>
-            </div><!-- End .header-left -->
-
-            <div class="header-right">
-                <a href="/wishlist" class="wishlist-link">
-                    <i class="icon-heart-o"></i>
-                    
-                    <span class="wishlist-txt">WISHLIST</span>
-                </a>
-
-                <div class="dropdown cart-dropdown">
-                    <a href="/cart" class="dropdown-toggle">
-                        <i class="icon-shopping-cart"></i>
+                       
                     </a>
 
                 </div><!-- End .cart-dropdown -->

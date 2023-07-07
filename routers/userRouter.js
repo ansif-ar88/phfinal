@@ -28,6 +28,7 @@ userRoute.post('/verifyForgot',userController.verifyForgotMail)
 userRoute.post('/resubmitPassword',userController.resubmitPassword)
 
 userRoute.get("/",userController.loadHome)
+userRoute.get("/about",userController.loadAbout)
 
 userRoute.get("/login",Auth.isLogout, userController.loadLogin);
 
