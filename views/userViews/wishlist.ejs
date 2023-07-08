@@ -1,6 +1,6 @@
 <%- include('../layouts/userLayouts/header.ejs') %>
 <%- include('../layouts/userLayouts/navbar.ejs') %>
-<div class="page-wrapper">
+<div class="page-wrapper" id="reloaddiv">
 <main class="main">
         
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
@@ -106,7 +106,8 @@
                      timer : 1500,
 
                  })
-                 location.reload();
+                //  location.reload();
+                 $("#reloaddiv").load('/wishlist #reloaddiv')
              }else{
                 swal.fire({
 
@@ -141,7 +142,8 @@
         },
         method: 'post',
         success: (response) => {
-          location.reload();
+          // location.reload();
+          $("#reloaddiv").load('/wishlist #reloaddiv')
           Swal.fire({
             title: 'Deleted!',
             text: 'Your item has been removed.',

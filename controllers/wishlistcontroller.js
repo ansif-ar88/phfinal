@@ -136,8 +136,8 @@ const addToCartFromWish = async (req, res,next) => {
       } else {
         cartData.products.push({
           productId: productId,
-          productPrice: productData.newPrice,
-          totalPrice: productData.newPrice,
+          productPrice: newPrice,
+          totalPrice: newPrice,
         });
         await cartData.save();
       }

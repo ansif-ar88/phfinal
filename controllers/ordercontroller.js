@@ -44,12 +44,12 @@ const loadChekout = async(req,res,next)=>{
             else{
                 const Total = total.length > 0 ? total[0].total : 0; 
                 const totalAmount = Total;
-              res.render('emptyCheckout',{session,Total,totalAmount,userData:userData,coupons:validCoupons,message:"Add your delivery address"});
+              res.render('checkOut',{session,Total,address:[],totalAmount,userData:userData,coupons:validCoupons});
             }
           }else{
             const Total = total.length > 0 ? total[0].total : 0; 
             const totalAmount = Total;
-            res.render('emptyCheckout',{session,Total,totalAmount,userData:userData,coupons:validCoupons,message:"Add your delivery address"});
+            res.render('checkOut',{session,address:[],Total,totalAmount,userData:userData,coupons:validCoupons});
           }
         }else{
           res.redirect('/')

@@ -23,7 +23,7 @@ input.btpos {
     border-radius: 0%;
 }
 </style>
-<div id="reloaddiv">
+<div class="page-wrapper" id="reloaddiv">
 <main class="main">
     
     <nav aria-label="breadcrumb" class="breadcrumb-nav">
@@ -39,6 +39,8 @@ input.btpos {
     <div class="page-content">
         <div class="cart">
             <div class="container">
+                <%
+                if(products.length > 0){%>
                 <div class="row">
                     <div class="col-lg-9">
                         <table class="table table-cart table-mobile">
@@ -53,9 +55,8 @@ input.btpos {
                             </thead>
 
                             <tbody>
-                                <%
-                                if(products.length > 0){
-                                products.forEach((product)=>{
+                               
+                                    <% products.forEach((product)=>{
                                     %>
                                 <tr>
                                     <td class="product-col">
@@ -94,17 +95,13 @@ input.btpos {
                                 <%
                         })
                             %>
-                            <%
-                        }else{
-                            %>
-
-                            <h1>empty</h1>
-                        <%}%>
+                            
                             </tbody>
                         </table><!-- End .table table-wishlist -->
 
                   
                     </div><!-- End .col-lg-9 -->
+                    
                     <aside class="col-lg-3">
                         <div class="summary summary-cart">
                             <h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
@@ -120,25 +117,6 @@ input.btpos {
                                         <td>&nbsp;</td>
                                     </tr>
 
-                                    <!-- <tr class="summary-shipping-row">
-                                        <td>
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" id="free-shipping" name="shipping" class="custom-control-input">
-                                                <label class="custom-control-label" for="free-shipping">Free Shipping</label>
-                                            </div><!-- End .custom-control --
-                                        </td>
-                                        <td>$0.00</td>
-                                    </tr>End .summary-shipping-row -->
-
-                                    <!-- <tr class="summary-shipping-row">
-                                        <td>
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" id="standart-shipping" name="shipping" class="custom-control-input">
-                                                <label class="custom-control-label" for="standart-shipping">Standart:</label>
-                                            </div><!-- End .custom-control --
-                                        </td>
-                                        <td>$10.00</td>
-                                    </tr>End .summary-shipping-row -->
 
                                     <tr class="summary-shipping-row">
                                         <td>
@@ -157,16 +135,28 @@ input.btpos {
                                     </tr><!-- End .summary-total -->
                                 </tbody>
                             </table><!-- End .table table-summary -->
-
+                         
                             <a href="/checkout" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
                         </div><!-- End .summary -->
 
                         <a href="/shop" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
+                        <%
+                    }else{
+                        %>
+                <div class="d-flex flex-column align-items-center ">
+
+                    <h2 class="text-danger">NO PRODUCTS AVAILABLE IN CART</h2>
+                    <a type="button" href="/shop" class="btn btn-outline-primary-2 mb-5">Back to shop</a>
+                </div>
+                        
+                    <%}%>
+
                     </aside><!-- End .col-lg-3 -->
                 </div><!-- End .row -->
             </div><!-- End .container -->
         </div><!-- End .cart -->
     </div><!-- End .page-content -->
+
 </main><!-- End .main -->
 </div>
 
@@ -183,8 +173,8 @@ input.btpos {
       method: 'post',
       success: (response) => {
         if (response.success) {
-          location.reload();
-        // $("#reloaddiv").load('/cart #reloaddiv')
+        //   location.reload();
+        $("#reloaddiv").load('/cart #reloaddiv')
         } else if (response.check) {
           swal.fire({
             icon: 'error',
@@ -227,7 +217,8 @@ function deletecart(proId) {
         },
         method: 'post',
         success: (response) => {
-          location.reload();
+        //   location.reload();
+        $("#reloaddiv").load('/cart #reloaddiv')
           Swal.fire({
             title: 'Deleted!',
             text: 'Your item has been deleted.',

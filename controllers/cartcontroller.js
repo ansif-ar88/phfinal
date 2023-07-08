@@ -46,19 +46,21 @@ const loadCart = async (req, res,next) => {
           userData:userName
         });
       } else {
-        res.render("cartEmpty", {
+        res.render("cart", {
            
         userData: userName,
         session,
         message: "No Products Added to Cart",
+        products:[]
         });
       }
     }else{
-        res.render("cartEmpty", {
+        res.render("cart", {
             
             userData: userName,
             session,
             message: "No Products Added to Cart",
+            products:[]
             });
     }
     } else {
@@ -69,17 +71,6 @@ const loadCart = async (req, res,next) => {
     next(error);
   }
 };
-
-
-//================== LOAD EMPTYCART PAGE ===============
-
-// const loadEmptyCart = async (req,res,next) =>{
-//     try {
-//         res.render("cartEmpty")
-//     } catch (error) {
-//       next(error);
-//     }
-// }
 
 //================ ADD TO CART ===============
 
@@ -227,12 +218,7 @@ const deletecart = async(req,res,next)=>{
     const found = await cartmodel.updateOne({userId:id},{$pull:{products:{productId:proid}}})
 
    }
-
-  
-   
-    res.json({success:true})
-
-      
+    res.json({success:true})   
   }catch(error){
     next(error);
   }
@@ -243,6 +229,5 @@ module.exports = {
   loadCart,
   addToCart,
   changeProductCount,
-  // loadEmptyCart,
   deletecart
 };
