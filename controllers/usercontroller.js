@@ -68,7 +68,7 @@ const insertUser = async (req, res,next) => {
 
     if (!passStrong) {
       res.render("signup", {
-        message: "password not strong",
+        message: "Add minimum 8 charectors,includes uppercase,lovercase,and atleast 20digits",
         
       });
       return
