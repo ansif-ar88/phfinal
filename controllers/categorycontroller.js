@@ -1,16 +1,16 @@
 const product = require ("../modals/productmodel")
 const category = require("../modals/categorymodel")
-const usermodal = require('../modals/usermodal')
+const usermodel = require('../modals/usermodal')
 const uc = require('upper-case')
 let mes
-const toastr = require('toastr')
+
 
 //========== LIST CATEGORY ==========
 
 const categoryList =  async (req,res,next) =>{
     try {
         const catData = await category.find({});
-        const adminData = await usermodal.findById({ _id: req.session.Auser_id });
+        const adminData = await usermodel.findById({ _id: req.session.Auser_id });
 
         res.render('categoryList',{category:catData,mes,admin : adminData})    
     } catch (error) {
@@ -57,9 +57,7 @@ const insertCategory = async (req,res,next) =>{
 const saveCategory = async(req,res,next) =>{
     try {
         const id = req.params.id
-        const name = req.body.categoryName;
-        
-
+        const name = uc.upperCase(req.body.categoryName);
         const catData = await category.findOneAndUpdate({_id:id}  ,{$set:{categoryName:name}});
         
         if(catData){

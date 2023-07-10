@@ -70,10 +70,11 @@
                         <label class="col-sm-3 col-form-label">brand</label>
                         <div class="col-sm-12">
                           <select class="form-control" name="brand">
-                            <option>Fossil</option>
-                            <option>Calvin Klein</option>
-                            <option>Titan</option>
-                            <option>Casio</option>
+
+                            <% brands.forEach(brand => { %>
+                              <option value="<%= brand._id %>"><%= brand.brandName %></option>
+                            <% }) %>
+                            
                           </select>
                         </div>
                       </div>
@@ -151,7 +152,7 @@
                     </td>
 
                     <td><%= products[i].offPercentage %> %</td>
-                    <td><%= products[i].brand %></td>
+                    <td><%= products[i].brand.brandName %></td>
                     <td><%= products[i].category.categoryName %></td>
                     <td><%= products[i].StockQuantity %></td>
                     <td class="d-flex flex-column">

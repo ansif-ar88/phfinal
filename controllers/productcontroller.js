@@ -3,16 +3,22 @@ const productmodel = require("../modals/productmodel");
 const categorymodel = require('../modals/categorymodel')
 const usermodal = require('../modals/usermodal')
 const fs=require('fs')
-const path = require("path")
+const path = require("path");
+const brandmodel = require("../modals/brandmodel");
 
 //============= LOAD PRODUCT LIST PAGE ===================
 
 const productList = async (req,res,next) => {
     try {
-        const productData = await productmodel.find({Status:true}).populate('category')
+        // const productData = await productmodel.find({Status:true}).populate('category')
+        const productData = await productmodel.find({ Status: true })
+  .populate('category')
+  .populate('brand');
+
         const categoryData = await categorymodel.find({is_deleted:false})
+        const brandData = await brandmodel.find({is_deleted:false})
         const adminData = await usermodal.findById({ _id: req.session.Auser_id });
-        res.render("productList",{products : productData,admin:adminData,category: categoryData});
+        res.render("productList",{products : productData,admin:adminData,category: categoryData,brands:brandData});
 
 
     } catch (error) {
@@ -31,12 +37,13 @@ const insertProduct = async(req,res,next) => {
         }
     }
         const category = await categorymodel.findById(req.body.category);
+        const brand = await brandmodel.findById(req.body.brand);
         const new_product = new productmodel({
             productName : req.body.productName,
             price : req.body.price,
             image : image,
             idealfor : req.body.idealfor,
-            brand : req.body.brand,
+            brand : brand,
             category : category,
             StockQuantity : req.body.StockQuantity,
             description : req.body.description,
@@ -59,10 +66,11 @@ const editProduct = async(req,res,next) => {
     try {
        
        const id = req.params.id
-       const productData = await productmodel.findOne({_id:id}).populate('category')
+       const productData = await productmodel.findOne({_id:id})
        const catData = await categorymodel.find({is_deleted : false})
+       const brandData = await brandmodel.find({is_deleted : false})
        const adminData = await usermodal.findById({_id:req.session.Auser_id})
-       res.render("editProduct",{admin:adminData,category:catData,products:productData})
+       res.render("editProduct",{admin:adminData,category:catData,products:productData,brands:brandData})
     } catch (error) {
       next(error);
     }
@@ -72,7 +80,7 @@ const editProduct = async(req,res,next) => {
 const editUpdateProduct = async (req,res,next) =>{
     if(req.body.productName.trim()=== "" || req.body.category.trim() === "" || req.body.description.trim() === "" || req.body.StockQuantity.trim() === "" || req.body.price.trim() === "" ) {
         const id = req.params.id
-        const productData = await productmodel.findOne({_id:id}).populate('category')
+        const productData = await productmodel.findOne({_id:id})
         const categoryData = await categorymodel.find({})
         const adminData = await usermodal.findById({_id:req.session.Auser_id})
         res.render('editProduct',{admin:adminData,products: productData,category:categoryData, message:"All fields required",})

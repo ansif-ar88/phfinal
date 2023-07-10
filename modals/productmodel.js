@@ -28,9 +28,10 @@ const mongoose = require ('mongoose');
         type : Array,
         required: true
     },
-    brand:{
-        type : String,
-        required: true
+    brand:{ 
+        type :  mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:"Brand"
     },
     idealfor : {  //gender
         type : String,

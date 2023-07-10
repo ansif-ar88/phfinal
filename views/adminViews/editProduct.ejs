@@ -78,10 +78,9 @@
                               <label class="col-sm-3 col-form-label">brand</label>
                               <div class="col-sm-9">
                                 <select class="form-control" name="brand">
-                                  <option>Fossil</option>
-                                  <option>Calvin Klein</option>
-                                  <option>Titan</option>
-                                  <option>Casio</option>
+                                  <% brands.forEach(brand => { %>
+                                    <option value="<%= brand._id %>"><%= brand.brandName %></option>
+                                  <% }) %>
                                 </select>
                               </div>
                             </div>

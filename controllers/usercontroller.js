@@ -171,6 +171,7 @@ const verifyLogin = async (req, res) => {
 
       if (passwordMatch) {
         if (userData.is_admin === 0) {
+          if(userData.is_verified ==true){
           if (userData.is_blocked == true) {
             res.render("login", { message: "YOU ARE BLOCKED BY ADMIN" });
           } else {
@@ -178,6 +179,9 @@ const verifyLogin = async (req, res) => {
 
             res.redirect("/home");
           }
+        }else{
+          res.render("login", { message: "OTP is not verified" });
+        }
         } else {
           res.render("login", { message: "Email or password is incorrect" });
         }

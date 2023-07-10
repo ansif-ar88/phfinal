@@ -16,6 +16,7 @@ const Auth = require("../middleware/adminAuth")
 const adminController = require("../controllers/admincontroller");
 const productController = require("../controllers/productcontroller")
 const categoryController = require('../controllers/categorycontroller')
+const brandController = require('../controllers/brandcontroller.js')
 const orderController = require('../controllers/ordercontroller.js')
 const offerController = require('../controllers/offercontroller.js')
 const bannerController = require('../controllers/bannercontroller.js')
@@ -51,6 +52,14 @@ adminRoute.post('/editCategory/:id', Auth.isLogin, categoryController.saveCatego
 adminRoute.get('/categoryList',Auth.isLogin,categoryController.categoryList)
 adminRoute.get('/unlistcategory',Auth.isLogin,categoryController.unlistCategory)
 adminRoute.get('/listcategory',Auth.isLogin,categoryController.listCategory)
+
+//========== BRAND MANAGEMENT ==============
+
+adminRoute.get('/brand',Auth.isLogin,brandController.brandList)
+adminRoute.post('/insertBrand', brandController.insertBrand);
+adminRoute.post('/editbrand/:id', Auth.isLogin, brandController.editBrand);
+adminRoute.get('/unlistbrand/:id',Auth.isLogin,brandController.unlistbrand)
+adminRoute.get('/listbrand/:id',Auth.isLogin,brandController.listbrand)
 
 //========== ORDER MANAGEMENT ==============
 
